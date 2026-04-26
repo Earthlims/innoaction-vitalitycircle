@@ -121,7 +121,7 @@ export default function ActivityScreen({ onNavigate: _onNavigate }: Props) {
       {/* Header */}
       <div className="px-5 pt-14 pb-4">
         <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Discover</p>
-        <h1 className="font-serif text-2xl font-medium text-foreground">Activities for you</h1>
+        <h1 className="text-2xl font-bold text-foreground">Activities for you</h1>
         <p className="text-sm text-muted-foreground mt-1">Swipe right to join · swipe left to skip</p>
       </div>
 
@@ -131,10 +131,11 @@ export default function ActivityScreen({ onNavigate: _onNavigate }: Props) {
         {cards.slice(1, 3).map((card, idx) => (
           <div
             key={card.id}
-            className="absolute inset-0 rounded-3xl bg-card border border-border overflow-hidden"
+            className="absolute inset-0 bg-white rounded-3xl overflow-hidden"
             style={{
               transform: `scale(${1 - (idx + 1) * 0.04}) translateY(${(idx + 1) * 10}px)`,
               zIndex: 10 - idx,
+              boxShadow: '0 2px 8px oklch(0 0 0 / 0.06)',
             }}
           />
         ))}
@@ -143,7 +144,8 @@ export default function ActivityScreen({ onNavigate: _onNavigate }: Props) {
         {current ? (
           <div
             key={current.id}
-            className={`absolute inset-0 rounded-3xl bg-card border border-border overflow-hidden z-20 ${swipeAnim ? (swipeAnim === 'left' ? 'swipe-left' : 'swipe-right') : ''}`}
+            className={`absolute inset-0 bg-white rounded-3xl overflow-hidden z-20 ${swipeAnim ? (swipeAnim === 'left' ? 'swipe-left' : 'swipe-right') : ''}`}
+            style={{ boxShadow: '0 8px 32px oklch(0 0 0 / 0.12)' }}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
@@ -163,7 +165,7 @@ export default function ActivityScreen({ onNavigate: _onNavigate }: Props) {
 
             {/* Content */}
             <div className="p-5">
-              <h2 className="font-serif text-xl font-medium text-foreground mb-1">{current.title}</h2>
+              <h2 className="text-xl font-bold text-foreground mb-1">{current.title}</h2>
               <p className="text-sm text-muted-foreground leading-relaxed mb-4">{current.desc}</p>
 
               <div className="flex flex-col gap-2">
@@ -179,7 +181,7 @@ export default function ActivityScreen({ onNavigate: _onNavigate }: Props) {
                   <div className="flex items-center gap-2">
                     <div className="flex -space-x-1.5">
                       {current.friends.map(f => (
-                        <div key={f} className="w-5 h-5 rounded-full bg-primary/20 border border-card flex items-center justify-center text-[8px] font-bold text-primary">
+                        <div key={f} className="w-5 h-5 rounded-full bg-primary/20 border border-white flex items-center justify-center text-[8px] font-bold text-primary">
                           {f[0]}
                         </div>
                       ))}
@@ -191,7 +193,7 @@ export default function ActivityScreen({ onNavigate: _onNavigate }: Props) {
 
               {/* Location tile */}
               {isOnline ? (
-                <div className="mt-3 rounded-2xl overflow-hidden border border-border" style={{ height: '80px' }}>
+                <div className="mt-3 rounded-2xl overflow-hidden" style={{ height: '80px' }}>
                   {/* gradient stops use raw oklch values — CSS var() not supported inside gradient() */}
                   <div
                     className="w-full h-full relative flex flex-col items-center justify-center gap-1"
@@ -205,7 +207,7 @@ export default function ActivityScreen({ onNavigate: _onNavigate }: Props) {
                   </div>
                 </div>
               ) : (
-                <div className="mt-3 rounded-2xl overflow-hidden border border-border" style={{ height: '80px' }}>
+                <div className="mt-3 rounded-2xl overflow-hidden" style={{ height: '80px' }}>
                   {/* gradient stops use raw oklch values — CSS var() not supported inside gradient() */}
                   <div
                     className="w-full h-full relative flex flex-col items-center justify-center gap-1"
@@ -231,11 +233,11 @@ export default function ActivityScreen({ onNavigate: _onNavigate }: Props) {
             </div>
           </div>
         ) : (
-          <div className="absolute inset-0 rounded-3xl bg-card border border-border flex flex-col items-center justify-center z-20">
+          <div className="absolute inset-0 rounded-3xl bg-white flex flex-col items-center justify-center z-20" style={{ boxShadow: '0 8px 32px oklch(0 0 0 / 0.12)' }}>
             <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-4">
               <Heart size={24} className="text-primary" />
             </div>
-            <p className="font-serif text-xl text-foreground mb-1">All caught up!</p>
+            <p className="text-xl font-bold text-foreground mb-1">All caught up!</p>
             <p className="text-sm text-muted-foreground text-center px-8">You&apos;ve reviewed all activities. Check back soon for more.</p>
             <button
               onClick={() => setCards(activities)}
@@ -252,7 +254,8 @@ export default function ActivityScreen({ onNavigate: _onNavigate }: Props) {
         <div className="flex items-center justify-center gap-8 mb-6">
           <button
             onClick={() => handleSwipe('left')}
-            className="w-14 h-14 rounded-full bg-card border-2 border-border flex items-center justify-center shadow-sm active:scale-90 transition-transform"
+            className="w-14 h-14 rounded-full bg-white border-0 flex items-center justify-center active:scale-90 transition-transform"
+            style={{ boxShadow: '0 2px 8px oklch(0 0 0 / 0.10)' }}
             aria-label="Skip"
           >
             <X size={24} className="text-muted-foreground" />
@@ -284,7 +287,7 @@ export default function ActivityScreen({ onNavigate: _onNavigate }: Props) {
             {activities
               .filter(a => liked.includes(a.id))
               .map(a => (
-                <div key={a.id} className="flex items-center gap-3 p-3.5 rounded-2xl bg-card border border-border">
+                <div key={a.id} className="flex items-center gap-3 p-3.5 rounded-2xl bg-white border-0" style={{ boxShadow: '0 1px 3px oklch(0 0 0 / 0.07)' }}>
                   <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                     <Heart size={14} className="text-primary" fill="currentColor" />
                   </div>

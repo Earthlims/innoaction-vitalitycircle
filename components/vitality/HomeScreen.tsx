@@ -52,61 +52,59 @@ export default function HomeScreen({ onNavigate }: Props) {
       <div className="px-5 pt-12 pb-4 flex items-start justify-between">
         <div>
           <p className="text-muted-foreground text-sm">{greeting}</p>
-          <h1 className="text-[1.75rem] text-foreground tracking-[0.02em] leading-tight" style={{ fontFamily: 'var(--font-italiana)' }}>Sophie</h1>
+          <h1 className="text-4xl text-foreground tracking-[0.02em] leading-tight" style={{ fontFamily: 'var(--font-italiana)' }}>Sophie</h1>
         </div>
         <button
           onClick={() => onNavigate('profile')}
           aria-label="View profile"
-          className="w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center transition-all duration-200 active:scale-90 active:bg-primary/25"
+          className="w-10 h-10 rounded-full bg-primary flex items-center justify-center transition-all duration-200 active:scale-90"
         >
-          <span className="font-semibold text-primary text-sm">S</span>
+          <span className="font-semibold text-white text-sm">S</span>
         </button>
       </div>
 
       {/* Hexagon VQ Score Card */}
-      <div className="mx-5 mb-5">
-        <div className="rounded-3xl bg-card border border-border p-6 flex flex-col items-center">
-          <svg viewBox="0 0 120 104" width="140" height="121" aria-label="VQ Score: 58" role="img">
-            <polygon
-              points="60,2 116,32 116,72 60,102 4,72 4,32"
-              fill="var(--color-card)"
-              stroke="var(--color-primary)"
-              strokeWidth="3"
-            />
-            <text
-              x="60"
-              y="52"
-              textAnchor="middle"
-              dominantBaseline="middle"
-              fontFamily="var(--font-italiana)"
-              fontSize="32"
-              fill="var(--color-foreground)"
-            >
-              58
-            </text>
-            <text
-              x="60"
-              y="70"
-              textAnchor="middle"
-              fontFamily="var(--font-dm-sans)"
-              fontSize="9"
-              fill="var(--color-muted-foreground)"
-              letterSpacing="2"
-            >
-              VQ SCORE
-            </text>
-          </svg>
+      <div className="mx-5 mb-6 bg-white rounded-3xl p-6 flex flex-col items-center" style={{ boxShadow: '0 1px 3px oklch(0 0 0 / 0.07)' }}>
+        <svg viewBox="0 0 120 104" width="140" height="121" aria-label="VQ Score: 58" role="img">
+          <polygon
+            points="60,2 116,32 116,72 60,102 4,72 4,32"
+            fill="white"
+            stroke="var(--color-primary)"
+            strokeWidth="3"
+          />
+          <text
+            x="60"
+            y="52"
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fontFamily="var(--font-italiana)"
+            fontSize="32"
+            fill="var(--color-foreground)"
+          >
+            58
+          </text>
+          <text
+            x="60"
+            y="70"
+            textAnchor="middle"
+            fontFamily="var(--font-dm-sans)"
+            fontSize="9"
+            fill="var(--color-muted-foreground)"
+            letterSpacing="2"
+          >
+            VQ SCORE
+          </text>
+        </svg>
 
-          {/* Status badge */}
-          <span className="mt-3 text-xs font-semibold bg-primary text-primary-foreground rounded-full px-3 py-1">
-            Moderate
-          </span>
+        {/* Status badge */}
+        <span className="mt-3 text-xs font-semibold bg-primary text-primary-foreground rounded-full px-3 py-1">
+          Moderate
+        </span>
 
-          {/* Context text */}
-          <p className="mt-2 text-sm text-muted-foreground text-center leading-relaxed">
-            Sleep and recovery are impacting your readiness today.
-          </p>
-        </div>
+        {/* Context text */}
+        <p className="mt-2 text-sm text-muted-foreground text-center leading-relaxed">
+          Sleep and recovery are impacting your readiness today.
+        </p>
       </div>
 
       {/* Longevity Missions */}
@@ -114,7 +112,7 @@ export default function HomeScreen({ onNavigate }: Props) {
         <h2 className="section-label mb-3">Longevity Missions</h2>
         <div className="space-y-3">
           {/* Personal mission card */}
-          <div className="rounded-2xl bg-card border border-border p-4">
+          <div className="bg-secondary rounded-2xl p-3.5">
             <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-1">Me: Daily Step Target</p>
             <div className="flex items-center justify-between mb-2">
               <p className="text-sm font-medium text-foreground">Progress: 7,420 / 10,000</p>
@@ -145,8 +143,8 @@ export default function HomeScreen({ onNavigate }: Props) {
                 <div className={`w-8 h-8 rounded-xl ${color} flex items-center justify-center mb-2`}>
                   <Icon size={15} className={iconColor} />
                 </div>
-                <p className="font-semibold text-foreground text-base leading-tight">{value}</p>
-                <p className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider mt-0.5">{label}</p>
+                <p className="text-lg font-bold text-foreground leading-tight">{value}</p>
+                <p className="text-[9px] font-bold tracking-widest text-muted-foreground uppercase mt-0.5">{label}</p>
                 <div className="flex items-center gap-1 mt-2">
                   <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${dot}`} />
                   <p className="text-[9px] text-muted-foreground leading-tight">{note}</p>
@@ -157,12 +155,17 @@ export default function HomeScreen({ onNavigate }: Props) {
               <button
                 key={label}
                 onClick={() => onNavigate(screen)}
-                className="rounded-2xl bg-card border border-border p-3.5 text-left active:scale-95 transition-transform"
+                className="bg-white rounded-2xl p-3.5 text-left active:scale-95 transition-transform"
+                style={{ boxShadow: '0 1px 3px oklch(0 0 0 / 0.06)' }}
               >
                 {content}
               </button>
             ) : (
-              <div key={label} className="rounded-2xl bg-card border border-border p-3.5 text-left">
+              <div
+                key={label}
+                className="bg-white rounded-2xl p-3.5 text-left"
+                style={{ boxShadow: '0 1px 3px oklch(0 0 0 / 0.06)' }}
+              >
                 {content}
               </div>
             )
@@ -175,7 +178,7 @@ export default function HomeScreen({ onNavigate }: Props) {
         <h2 className="section-label mb-3">What needs attention today</h2>
         <div className="space-y-2">
           {attentionItems.map(({ icon: Icon, text, color, bg }) => (
-            <div key={text} className="flex gap-3 p-3.5 rounded-2xl bg-card border border-border">
+            <div key={text} className="flex gap-3 p-3.5 rounded-2xl bg-white border-0" style={{ boxShadow: '0 1px 3px oklch(0 0 0 / 0.07)' }}>
               <div className={`mt-0.5 w-7 h-7 rounded-xl ${bg} flex items-center justify-center shrink-0`}>
                 <Icon size={13} className={color} />
               </div>
@@ -190,7 +193,7 @@ export default function HomeScreen({ onNavigate }: Props) {
         <h2 className="section-label mb-3">Suggested for today</h2>
         <div className="space-y-2">
           {suggestions.map(({ label, tag, cta }) => (
-            <div key={label} className="flex items-center gap-3 p-3.5 rounded-2xl bg-card border border-border">
+            <div key={label} className="flex items-center gap-3 p-3.5 rounded-2xl bg-white border-0" style={{ boxShadow: '0 1px 3px oklch(0 0 0 / 0.07)' }}>
               <div className="flex-1">
                 <p className="text-sm font-medium text-foreground">{label}</p>
                 <span className="text-[10px] font-medium text-primary bg-primary/10 rounded-full px-2 py-0.5 mt-1 inline-block">
@@ -212,7 +215,8 @@ export default function HomeScreen({ onNavigate }: Props) {
       <div className="px-5">
         <button
           onClick={() => onNavigate('insight')}
-          className="w-full flex items-center justify-between p-4 rounded-2xl bg-card border border-border"
+          className="w-full flex items-center justify-between p-4 rounded-2xl bg-white border-0"
+          style={{ boxShadow: '0 1px 3px oklch(0 0 0 / 0.07)' }}
         >
           <div>
             <p className="text-sm font-medium text-foreground">View Sleep Insight</p>

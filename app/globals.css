@@ -4,66 +4,63 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Vitality Circle — Warm Champagne & Charcoal palette */
-  --background: oklch(0.972 0.014 82);         /* warm ivory — parchment white */
-  --foreground: oklch(0.20 0.018 48);          /* deep warm charcoal — near-black */
+  /* ── Apple-style white base ───────────────────────────────── */
+  --background: oklch(0.99 0 0);                 /* near-pure white */
+  --foreground: oklch(0.09 0.005 250);           /* near-black, cool tint */
 
-  --card: oklch(0.988 0.010 78);               /* soft warm white */
-  --card-foreground: oklch(0.20 0.018 48);
+  --card: oklch(1 0 0);                          /* pure white cards */
+  --card-foreground: oklch(0.09 0.005 250);
 
-  --popover: oklch(0.988 0.010 78);
-  --popover-foreground: oklch(0.20 0.018 48);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.09 0.005 250);
 
-  /* Warm muted gold — primary brand */
-  --primary: oklch(0.50 0.095 68);             /* rich olive-gold */
-  --primary-foreground: oklch(0.99 0.005 85);  /* warm off-white */
+  /* ── Brand gold — vibrant on white ───────────────────────── */
+  --primary: oklch(0.52 0.13 68);               /* vivid warm gold */
+  --primary-foreground: oklch(1 0 0);            /* white text on gold */
 
-  /* Champagne surface tint */
-  --accent: oklch(0.90 0.055 76);              /* warm champagne */
-  --accent-foreground: oklch(0.28 0.04 58);
+  --accent: oklch(0.96 0.02 75);                /* barely-there gold wash */
+  --accent-foreground: oklch(0.35 0.08 65);
 
-  --secondary: oklch(0.945 0.028 78);          /* warm cream — replaces grey */
-  --secondary-foreground: oklch(0.44 0.052 68);
+  --secondary: oklch(0.96 0 0);                  /* Apple light grey */
+  --secondary-foreground: oklch(0.40 0 0);
 
-  --muted: oklch(0.955 0.016 80);              /* barely-there warm tone */
-  --muted-foreground: oklch(0.52 0.022 62);    /* warm medium grey */
+  --muted: oklch(0.96 0 0);                      /* Apple light grey */
+  --muted-foreground: oklch(0.50 0.005 250);     /* medium grey */
 
   --destructive: oklch(0.52 0.26 25);
   --destructive-foreground: oklch(1 0 0);
-  --notification-red:   oklch(0.52 0.26 25);    /* same as destructive — explicit alias for UI use */
+  --notification-red: oklch(0.52 0.26 25);
 
-  --border: oklch(0.905 0.018 78);             /* warm sand border */
-  --input: oklch(0.925 0.016 78);
-  --ring: oklch(0.50 0.095 68);
+  --border: oklch(0.92 0 0);                     /* very light grey */
+  --input: oklch(0.94 0 0);
+  --ring: oklch(0.52 0.13 68);
 
   --radius: 1rem;
 
-  /* wellness tokens — all remapped to warm palette */
-  --wellness-gold:       oklch(0.50 0.095 68);  /* olive-gold (= primary) */
-  --wellness-champagne:  oklch(0.90 0.055 76);  /* warm champagne */
-  --wellness-sand:       oklch(0.915 0.042 82); /* warm sand / oat */
-  --wellness-slate:      oklch(0.52 0.025 58);  /* warm brown-slate */
-  /* formerly blue/teal — remapped to warm amber-gold */
-  --wellness-sky:        oklch(0.935 0.038 82); /* very light warm oat */
-  --wellness-teal:       oklch(0.48 0.075 68);  /* deeper olive-gold */
-  /* formerly rose/blush — remapped to warm terracotta */
-  --wellness-blush:      oklch(0.88 0.058 52);  /* warm dusty terracotta */
-  --wellness-green:      oklch(0.50 0.095 68);  /* alias → primary */
+  /* ── 6 Health Pillar tokens — vivid on white ─────────────── */
+  --pillar-sleep:      oklch(0.40 0.18 265);    /* deep indigo */
+  --pillar-recovery:   oklch(0.55 0.22 25);     /* vivid coral-red */
+  --pillar-movement:   oklch(0.50 0.20 155);    /* vivid emerald */
+  --pillar-nutrition:  oklch(0.55 0.19 130);    /* fresh lime */
+  --pillar-mental:     oklch(0.48 0.20 295);    /* vivid violet */
+  --pillar-social:     oklch(0.52 0.13 68);     /* warm gold = primary */
 
-  /* 6 Health Pillar tokens — each domain gets a distinct color */
-  --pillar-sleep:       oklch(0.40 0.15 265);   /* deep indigo/navy */
-  --pillar-recovery:    oklch(0.58 0.20 30);    /* coral/red-orange */
-  --pillar-movement:    oklch(0.52 0.18 155);   /* vivid emerald green */
-  --pillar-nutrition:   oklch(0.58 0.17 130);   /* fresh lime-green */
-  --pillar-mental:      oklch(0.50 0.18 295);   /* soft violet/purple */
-  --pillar-social:      oklch(0.50 0.095 68);   /* warm amber (= existing primary) */
+  /* ── Wellness tokens (backward compat) ───────────────────── */
+  --wellness-gold:       oklch(0.52 0.13 68);
+  --wellness-champagne:  oklch(0.96 0.02 75);
+  --wellness-sand:       oklch(0.94 0.01 80);
+  --wellness-slate:      oklch(0.50 0.005 250);
+  --wellness-sky:        oklch(0.95 0.01 230);
+  --wellness-teal:       oklch(0.45 0.12 200);
+  --wellness-blush:      oklch(0.92 0.02 25);
+  --wellness-green:      oklch(0.50 0.20 155);
 }
 
 @theme inline {
-  --font-sans: var(--font-cormorant-garamond), var(--font-dm-sans), ui-sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, var(--font-dm-sans), ui-sans-serif;
   --font-serif: var(--font-cormorant-garamond), serif;
   --font-display: var(--font-italiana), serif;
-  --font-body: var(--font-dm-sans), ui-sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, var(--font-dm-sans), ui-sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -110,11 +107,10 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
     font-size: 15px;
   }
 
-  /* Mobile-first: constrain and center the app shell */
   #app-shell {
     max-width: 430px;
     margin: 0 auto;
@@ -125,37 +121,32 @@
   }
 }
 
-/* ── Screen transition animations ─────────────────────────── */
+/* ── Screen transitions ────────────────────────────────────── */
 @keyframes screen-enter {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes screen-exit {
-  from { opacity: 1; transform: translateY(0); }
-  to   { opacity: 0; transform: translateY(-8px); }
-}
-
-.screen-enter {
-  animation: screen-enter 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-/* ── Swipe card animations ─────────────────────────────────── */
-@keyframes swipe-left {
-  to { transform: translateX(-120%) rotate(-12deg); opacity: 0; }
-}
-@keyframes swipe-right {
-  to { transform: translateX(120%) rotate(12deg); opacity: 0; }
-}
-
-.swipe-left  { animation: swipe-left  0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-.swipe-right { animation: swipe-right 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-
-/* ── Card hover / press feel ──────────────────────────────── */
-@keyframes card-in {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.card-in { animation: card-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.screen-enter { animation: screen-enter 0.28s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* ── Swipe card animations ─────────────────────────────────── */
+@keyframes swipe-left  { to { transform: translateX(-120%) rotate(-12deg); opacity: 0; } }
+@keyframes swipe-right { to { transform: translateX(120%)  rotate(12deg);  opacity: 0; } }
+.swipe-left  { animation: swipe-left  0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.swipe-right { animation: swipe-right 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+
+/* ── Card entrance ─────────────────────────────────────────── */
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.card-in { animation: card-in 0.24s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* ── FAB pulse (Vital Daily button) ───────────────────────── */
+@keyframes fab-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(0.52 0.13 68 / 0.4); }
+  50%       { box-shadow: 0 0 0 10px oklch(0.52 0.13 68 / 0); }
+}
+.fab-pulse { animation: fab-pulse 2.4s ease-in-out infinite; }
 
 /* ── Emoji reaction pop ───────────────────────────────────── */
 @keyframes emoji-pop {
@@ -172,18 +163,37 @@
 }
 .emoji-pop { animation: emoji-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
 
-/* ── Dark mode pillar color overrides ─────────────────────── */
-.dark {
-  --pillar-sleep:       oklch(0.48 0.15 265);   /* 0.40 + 0.08 */
-  --pillar-recovery:    oklch(0.66 0.18 30);    /* 0.58 + 0.08 */
-  --pillar-movement:    oklch(0.60 0.16 155);   /* 0.52 + 0.08 */
-  --pillar-nutrition:   oklch(0.66 0.15 130);   /* 0.58 + 0.08 */
-  --pillar-mental:      oklch(0.58 0.16 295);   /* 0.50 + 0.08 */
-  --pillar-social:      oklch(0.58 0.09 68);    /* 0.50 + 0.08 */
-  --notification-red:   oklch(0.68 0.24 25);    /* lighter red for dark bg */
+/* ── Apple-style card shadows ─────────────────────────────── */
+.apple-card {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px oklch(0 0 0 / 0.07), 0 1px 2px oklch(0 0 0 / 0.05);
+}
+.apple-card-raised {
+  box-shadow: 0 4px 20px oklch(0 0 0 / 0.09), 0 1px 4px oklch(0 0 0 / 0.05);
 }
 
-/* VitalLife brand utility classes */
+/* ── Dark mode ────────────────────────────────────────────── */
+.dark {
+  --background: oklch(0.10 0.005 250);
+  --foreground: oklch(0.97 0 0);
+  --card: oklch(0.14 0.005 250);
+  --card-foreground: oklch(0.97 0 0);
+  --border: oklch(0.22 0.005 250);
+  --muted: oklch(0.18 0.005 250);
+  --muted-foreground: oklch(0.65 0 0);
+  --secondary: oklch(0.18 0.005 250);
+  --primary: oklch(0.65 0.13 68);
+  --notification-red: oklch(0.68 0.24 25);
+  --pillar-sleep:      oklch(0.55 0.18 265);
+  --pillar-recovery:   oklch(0.68 0.20 25);
+  --pillar-movement:   oklch(0.62 0.18 155);
+  --pillar-nutrition:  oklch(0.68 0.17 130);
+  --pillar-mental:     oklch(0.62 0.18 295);
+  --pillar-social:     oklch(0.65 0.13 68);
+}
+
+/* ── Brand utilities ──────────────────────────────────────── */
 .section-label {
-  @apply text-xs font-semibold uppercase tracking-widest text-muted-foreground;
+  @apply text-[10px] font-bold uppercase tracking-widest text-muted-foreground;
 }
