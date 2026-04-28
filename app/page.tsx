@@ -13,6 +13,7 @@ import CircleDetailScreen from '@/components/vitality/CircleDetailScreen'
 import ActivityScreen from '@/components/vitality/ActivityScreen'
 import GuidanceScreen from '@/components/vitality/GuidanceScreen'
 import ProfileScreen from '@/components/vitality/ProfileScreen'
+import SnapScreen from '@/components/vitality/SnapScreen'
 
 const NAV_SCREENS: Screen[] = ['home', 'circle', 'activities', 'guidance', 'profile']
 
@@ -20,19 +21,9 @@ export default function VitalityApp() {
   const [screen, setScreen] = useState<Screen>('onboarding')
   const [insightPillar, setInsightPillar] = useState<VitalityPillar>('sleep')
   const [animKey, setAnimKey] = useState(0)
-  const [fabSnap, setFabSnap] = useState(false)
 
   const navigate = (s: Screen) => {
-    setFabSnap(false)
     setScreen(s)
-    setAnimKey(k => k + 1)
-    requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0 }))
-  }
-
-  // FAB skips setup — opens snap camera directly (step 3)
-  const handleFab = () => {
-    setFabSnap(true)
-    setScreen('circle')
     setAnimKey(k => k + 1)
     requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0 }))
   }
@@ -50,22 +41,20 @@ export default function VitalityApp() {
         {screen === 'onboarding'    && <OnboardingScreen   onNavigate={navigate} />}
         {screen === 'home'          && <HomeScreen          onNavigate={navigate} onOpenInsight={openInsight} />}
         {screen === 'insight'       && <InsightScreen       onNavigate={navigate} pillar={insightPillar} />}
-        {screen === 'circle'        && <CircleScreen        onNavigate={navigate} openSnap={fabSnap} onSnapOpened={() => setFabSnap(false)} />}
+        {screen === 'circle'        && <CircleScreen        onNavigate={navigate} />}
         {screen === 'circle-detail' && <CircleDetailScreen  onNavigate={navigate} />}
         {screen === 'activities'    && <ActivityScreen      onNavigate={navigate} />}
         {screen === 'guidance'      && <GuidanceScreen      onNavigate={navigate} />}
         {screen === 'profile'       && <ProfileScreen       onNavigate={navigate} />}
+        {screen === 'snap'          && <SnapScreen          onNavigate={navigate} />}
       </div>
 
       {showNav && (
         <>
-          <BottomNav
-            active={screen}
-            onNavigate={navigate}
-          />
+          <BottomNav active={screen} onNavigate={navigate} />
           {/* FAB — Snap your moment pill CTA */}
           <button
-            onClick={handleFab}
+            onClick={() => navigate('snap')}
             aria-label="Snap your moment"
             className="fab-pulse fixed bg-primary text-white flex items-center gap-2 active:scale-95 transition-transform z-40"
             style={{

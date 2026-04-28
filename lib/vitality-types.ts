@@ -7,6 +7,7 @@ export type Screen =
   | 'activities'
   | 'guidance'
   | 'profile'
+  | 'snap'
 
 export type VitalityPillar =
   | 'sleep'
