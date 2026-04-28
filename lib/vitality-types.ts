@@ -7,3 +7,11 @@ export type Screen =
   | 'activities'
   | 'guidance'
   | 'profile'
+
+export type VitalityPillar =
+  | 'sleep'
+  | 'recovery'
+  | 'movement'
+  | 'nutrition'
+  | 'mental'
+  | 'social'

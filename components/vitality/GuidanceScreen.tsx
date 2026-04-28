@@ -1,168 +1,220 @@
 'use client'
 
-import { Moon, Users, TrendingDown, BookOpen, Heart, ArrowRight, Sparkles } from 'lucide-react'
+import { Moon, Users, TrendingDown, BookOpen, Heart, ArrowRight, Sparkles, Clock, CheckCircle, ShieldCheck } from 'lucide-react'
 import type { Screen } from '@/lib/vitality-types'
 
 interface Props { onNavigate: (s: Screen) => void }
 
-const nudges = [
+const guidanceStack = [
   {
-    type: 'insight',
+    label: 'Do now',
     icon: Moon,
-    iconBg: 'bg-wellness-sky/20',
-    iconColor: 'text-wellness-teal',
-    title: 'Your sleep has dipped this week',
-    body: 'Your average sleep has been 5.9h this week — about 1 hour below your personal baseline. Quality rest affects everything from mood to immune health.',
-    actions: [
-      { label: 'Explore sleep activities', screen: 'activities' as Screen },
-      { label: 'View sleep insight', screen: 'insight' as Screen },
-    ],
-    tag: 'Sleep · Personalised',
+    iconBg: 'bg-tile-sleep',
+    iconColor: 'text-pillar-sleep',
+    title: 'Set a wind-down anchor',
+    body: 'Your sleep average is below baseline, and recovery has dipped. A fixed 10pm wind-down gives tonight the highest leverage.',
+    why: ['Sleep down 5 days', 'Recovery below target'],
+    action: 'View sleep pattern',
+    screen: 'insight' as Screen,
   },
   {
-    type: 'social',
+    label: 'Circle opportunity',
     icon: Users,
-    iconBg: 'bg-secondary',
-    iconColor: 'text-primary',
-    title: '3 people in your circle joined a recovery session',
-    body: 'Anna, James, and Tom are attending Sunday Recovery Walk this weekend. Moving together is one of the most effective ways to build lasting habits.',
-    actions: [
-      { label: 'Join them', screen: 'activities' as Screen },
-    ],
-    tag: 'Circle · Social',
+    iconBg: 'bg-tile-social',
+    iconColor: 'text-pillar-social',
+    title: 'Join the recovery walk with your circle',
+    body: 'Anna, James, and Tom are already joining. A low-intensity social activity fits your recovery state better than a hard session.',
+    why: ['3 circle members joining', 'Low intensity'],
+    action: 'See activity',
+    screen: 'activities' as Screen,
   },
   {
-    type: 'pattern',
+    label: 'Pattern detected',
     icon: TrendingDown,
-    iconBg: 'bg-wellness-sand',
-    iconColor: 'text-wellness-teal',
-    title: 'A pattern worth noticing',
-    body: 'Your recovery score has trended downward for five consecutive days. This can happen during periods of high stress or disrupted sleep. A lighter week may help you reset.',
-    actions: [
-      { label: 'Try a recovery activity', screen: 'activities' as Screen },
-    ],
-    tag: 'Recovery · Pattern',
-  },
-  {
-    type: 'professional',
-    icon: Heart,
-    iconBg: 'bg-wellness-blush/50',
-    iconColor: 'text-wellness-slate',
-    title: 'A deeper health review may be worthwhile',
-    body: 'Based on your recent patterns — reduced sleep, lower recovery, and lower activity — a conversation with a health professional could offer useful perspective. This is a gentle suggestion, not a diagnosis.',
-    actions: [
-      { label: 'Learn more', screen: 'home' as Screen },
-      { label: 'Find a specialist', screen: 'home' as Screen },
-    ],
-    tag: 'Wellbeing · Professional Care',
-    important: true,
+    iconBg: 'bg-tile-recovery',
+    iconColor: 'text-pillar-recovery',
+    title: 'Keep effort light for 48 hours',
+    body: 'Recovery trending down usually means stress is stacking. Treat this as a reset window, not a performance week.',
+    why: ['5-day decline', 'Lower movement capacity'],
+    action: 'Find recovery options',
+    screen: 'activities' as Screen,
   },
 ]
 
-const articles = [
+const library = [
   {
     icon: BookOpen,
     title: 'Why sleep quality matters more than quantity',
     read: '3 min read',
     tag: 'Sleep',
+    tile: 'bg-tile-sleep',
+    tagText: 'text-pillar-sleep',
   },
   {
     icon: Sparkles,
-    title: 'The science of recovery — what your body needs',
+    title: 'The science of recovery and downshifting',
     read: '4 min read',
     tag: 'Recovery',
+    tile: 'bg-tile-recovery',
+    tagText: 'text-pillar-recovery',
   },
   {
     icon: Heart,
     title: 'How social connection supports longevity',
     read: '5 min read',
     tag: 'Wellbeing',
+    tile: 'bg-tile-social',
+    tagText: 'text-pillar-social',
   },
 ]
 
 export default function GuidanceScreen({ onNavigate }: Props) {
   return (
-    <div className="pb-24">
-      {/* Header */}
-      <div className="px-5 pt-14 pb-4">
-        <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Smart Guidance</p>
-        <h1 className="font-serif text-2xl font-medium text-foreground">Nudges &amp; insights</h1>
-        <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
-          Supportive suggestions based on your data — never prescriptive, always personal.
+    <div className="pb-24 pt-2">
+      <div className="px-5 pt-12 pb-2 flex items-center justify-between">
+        <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+          <span className="font-semibold text-white text-sm">SK</span>
+        </div>
+      </div>
+
+      <div className="px-5 pt-2 pb-4">
+        <p className="text-sm text-muted-foreground">Smart Guidance</p>
+        <h1 className="text-3xl font-semibold tracking-tight text-foreground leading-[1.05] mt-0.5">Today&apos;s Guidance</h1>
+        <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+          Your calm next-step coach, built from your patterns and circle activity.
         </p>
       </div>
 
-      {/* Nudge cards */}
-      <div className="px-5 space-y-4 mb-6">
-        {nudges.map((nudge, i) => {
-          const Icon = nudge.icon
-          return (
-            <div
-              key={i}
-              className={`rounded-3xl border p-5 bg-card ${nudge.important ? 'border-wellness-blush/60 bg-wellness-blush/10' : 'border-border'}`}
-            >
-              {/* Tag row */}
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-[10px] font-medium text-muted-foreground">{nudge.tag}</span>
-                {nudge.important && (
-                  <span className="text-[10px] font-semibold text-wellness-slate bg-wellness-blush/50 rounded-full px-2 py-0.5">
-                    Gentle suggestion
-                  </span>
-                )}
-              </div>
-
-              <div className="flex items-start gap-3 mb-3">
-                <div className={`w-10 h-10 rounded-2xl ${nudge.iconBg} flex items-center justify-center shrink-0`}>
-                  <Icon size={18} className={nudge.iconColor} />
-                </div>
-                <h2 className="font-semibold text-foreground text-base leading-snug flex-1">{nudge.title}</h2>
-              </div>
-
-              <p className="text-sm text-muted-foreground leading-relaxed mb-4">{nudge.body}</p>
-
-              <div className="flex flex-wrap gap-2">
-                {nudge.actions.map((action, j) => (
-                  <button
-                    key={j}
-                    onClick={() => onNavigate(action.screen)}
-                    className={`flex items-center gap-1.5 text-xs font-semibold rounded-full px-4 py-2 ${
-                      j === 0
-                        ? 'bg-primary text-white'
-                        : 'bg-card border border-border text-foreground'
-                    }`}
-                  >
-                    {action.label}
-                    {j === 0 && <ArrowRight size={11} />}
-                  </button>
-                ))}
-              </div>
+      {/* Primary coach card */}
+      <div className="mx-5 mb-5 rounded-3xl bg-white overflow-hidden" style={{ boxShadow: '0 1px 3px oklch(0 0 0 / 0.06)' }}>
+        <div
+          className="p-5"
+          style={{
+            background: 'radial-gradient(ellipse at top left, oklch(0.95 0.06 65 / 0.75) 0%, transparent 55%), radial-gradient(ellipse at top right, oklch(0.95 0.05 265 / 0.55) 0%, transparent 52%), white',
+          }}
+        >
+          <div className="flex items-start justify-between gap-3 mb-5">
+            <div>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/80 px-3 py-1 text-[11px] font-semibold text-primary shadow-sm">
+                <Sparkles size={12} />
+                Top priority
+              </span>
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight text-foreground leading-tight">Protect recovery today</h2>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                Sleep, recovery, and movement are all softer than usual. The best move is not more effort, but a cleaner reset.
+              </p>
             </div>
-          )
-        })}
+            <div className="w-14 h-14 rounded-2xl bg-tile-recovery flex items-center justify-center shrink-0">
+              <ShieldCheck size={24} className="text-pillar-recovery" />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-2 mb-5">
+            {[
+              { label: 'Sleep', value: '5.9h', tile: 'bg-tile-sleep', text: 'text-pillar-sleep' },
+              { label: 'Recovery', value: '62%', tile: 'bg-tile-recovery', text: 'text-pillar-recovery' },
+              { label: 'Steps', value: '4.2k', tile: 'bg-tile-movement', text: 'text-pillar-movement' },
+            ].map(item => (
+              <div key={item.label} className={`${item.tile} rounded-2xl p-3`}>
+                <p className={`text-[10px] font-semibold ${item.text}`}>{item.label}</p>
+                <p className="text-lg font-semibold text-foreground tracking-tight mt-0.5">{item.value}</p>
+              </div>
+            ))}
+          </div>
+
+          <button
+            onClick={() => onNavigate('activities')}
+            className="w-full rounded-2xl bg-foreground py-3 text-sm font-semibold text-white flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
+          >
+            Start recovery plan <ArrowRight size={14} />
+          </button>
+        </div>
       </div>
 
-      {/* Disclaimer */}
-      <div className="mx-5 mb-6 p-4 rounded-2xl bg-muted border border-border">
-        <p className="text-xs text-muted-foreground leading-relaxed">
-          <span className="font-semibold text-foreground">How guidance works:</span> Vitality Circle surfaces patterns from your data to offer supportive nudges. This is not medical advice. Always consult a qualified professional for health decisions.
-        </p>
+      {/* Timeline */}
+      <div className="px-5 mb-5">
+        <h2 className="text-[11px] font-semibold text-muted-foreground mb-3">Guidance stack</h2>
+        <div className="space-y-3">
+          {guidanceStack.map((item, index) => {
+            const Icon = item.icon
+            return (
+              <div key={item.title} className="rounded-3xl bg-white p-4" style={{ boxShadow: '0 1px 3px oklch(0 0 0 / 0.06)' }}>
+                <div className="flex items-start gap-3">
+                  <div className="flex flex-col items-center">
+                    <div className={`w-11 h-11 rounded-2xl ${item.iconBg} flex items-center justify-center shrink-0`}>
+                      <Icon size={18} className={item.iconColor} />
+                    </div>
+                    {index < guidanceStack.length - 1 && <div className="mt-2 h-8 w-[2px] rounded-full bg-border" />}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-2 mb-1">
+                      <span className="text-[11px] font-semibold text-primary">{item.label}</span>
+                      <Clock size={13} className="text-muted-foreground" />
+                    </div>
+                    <h3 className="text-base font-semibold text-foreground tracking-tight leading-snug">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed mt-2">{item.body}</p>
+                    <div className="flex flex-wrap gap-1.5 mt-3">
+                      {item.why.map(reason => (
+                        <span key={reason} className="rounded-full bg-secondary px-2.5 py-1 text-[10px] font-semibold text-muted-foreground">
+                          {reason}
+                        </span>
+                      ))}
+                    </div>
+                    <button
+                      onClick={() => onNavigate(item.screen)}
+                      className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-2 text-xs font-semibold text-white active:scale-95 transition-transform"
+                    >
+                      {item.action} <ArrowRight size={12} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
       </div>
 
-      {/* Educational micro-reads */}
+      {/* Care option */}
+      <div className="mx-5 mb-6 rounded-3xl bg-white p-4" style={{ boxShadow: '0 1px 3px oklch(0 0 0 / 0.06)' }}>
+        <div className="flex items-start gap-3">
+          <div className="w-11 h-11 rounded-2xl bg-tile-mental flex items-center justify-center shrink-0">
+            <Heart size={18} className="text-pillar-mental" />
+          </div>
+          <div className="flex-1">
+            <span className="rounded-full bg-tile-mental px-2.5 py-1 text-[10px] font-semibold text-pillar-mental">
+              Care option
+            </span>
+            <h2 className="mt-2 text-base font-semibold text-foreground tracking-tight">A deeper review may be worthwhile</h2>
+            <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+              If low sleep, recovery, and activity continue together, a qualified professional can help you interpret the pattern. This is a supportive prompt, not a diagnosis.
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <button className="rounded-full bg-foreground px-3.5 py-2 text-xs font-semibold text-white">
+                Learn what to ask
+              </button>
+              <button className="rounded-full bg-white border border-border px-3.5 py-2 text-xs font-semibold text-foreground">
+                Not now
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Guidance library */}
       <div className="px-5">
-        <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">Learn more</h2>
+        <h2 className="text-[11px] font-semibold text-muted-foreground mb-3">Guidance library</h2>
         <div className="space-y-2">
-          {articles.map(({ icon: Icon, title, read, tag }) => (
-            <div key={title} className="flex items-center gap-3 p-4 rounded-2xl bg-card border border-border">
-              <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                <Icon size={16} className="text-primary" />
+          {library.map(({ icon: Icon, title, read, tag, tile, tagText }) => (
+            <div key={title} className="flex items-center gap-3 p-4 rounded-2xl bg-white" style={{ boxShadow: '0 1px 3px oklch(0 0 0 / 0.06)' }}>
+              <div className={`w-10 h-10 rounded-2xl ${tile} flex items-center justify-center shrink-0`}>
+                <Icon size={16} className={tagText} />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-foreground leading-snug">{title}</p>
+                <p className="text-sm font-semibold text-foreground leading-snug">{title}</p>
                 <p className="text-xs text-muted-foreground">{read}</p>
               </div>
               <div className="shrink-0 flex flex-col items-end gap-1.5">
-                <span className="text-[10px] font-medium text-primary bg-primary/10 rounded-full px-2 py-0.5">{tag}</span>
+                <span className={`text-[10px] font-semibold ${tagText} ${tile} rounded-full px-2 py-0.5`}>{tag}</span>
                 <button className="text-xs font-semibold text-primary">Read</button>
               </div>
             </div>

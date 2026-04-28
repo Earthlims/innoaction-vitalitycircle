@@ -37,13 +37,21 @@
 
   --radius: 1rem;
 
-  /* ── 6 Health Pillar tokens — vivid on white ─────────────── */
-  --pillar-sleep:      oklch(0.40 0.18 265);    /* deep indigo */
-  --pillar-recovery:   oklch(0.55 0.22 25);     /* vivid coral-red */
-  --pillar-movement:   oklch(0.50 0.20 155);    /* vivid emerald */
-  --pillar-nutrition:  oklch(0.55 0.19 130);    /* fresh lime */
-  --pillar-mental:     oklch(0.48 0.20 295);    /* vivid violet */
-  --pillar-social:     oklch(0.52 0.13 68);     /* warm gold = primary */
+  /* ── 6 Health Pillar tokens — soft pastel (Withings-style) ── */
+  --pillar-sleep:      oklch(0.62 0.12 265);    /* soft periwinkle */
+  --pillar-recovery:   oklch(0.72 0.13 25);     /* soft coral */
+  --pillar-movement:   oklch(0.78 0.15 95);     /* warm pastel yellow */
+  --pillar-nutrition:  oklch(0.72 0.13 145);    /* soft mint green */
+  --pillar-mental:     oklch(0.70 0.13 295);    /* soft lavender */
+  --pillar-social:     oklch(0.76 0.12 65);     /* soft peach-gold */
+
+  /* Pastel tile fills — used as backgrounds for category cards */
+  --tile-sleep:        oklch(0.95 0.04 265);
+  --tile-recovery:     oklch(0.93 0.05 25);
+  --tile-movement:     oklch(0.95 0.07 95);
+  --tile-nutrition:    oklch(0.94 0.06 145);
+  --tile-mental:       oklch(0.95 0.05 295);
+  --tile-social:       oklch(0.96 0.05 65);
 
   /* ── Wellness tokens (backward compat) ───────────────────── */
   --wellness-gold:       oklch(0.52 0.13 68);
@@ -57,10 +65,10 @@
 }
 
 @theme inline {
-  --font-sans: -apple-system, BlinkMacSystemFont, var(--font-dm-sans), ui-sans-serif;
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, ui-sans-serif;
   --font-serif: var(--font-cormorant-garamond), serif;
   --font-display: var(--font-italiana), serif;
-  --font-body: -apple-system, BlinkMacSystemFont, var(--font-dm-sans), ui-sans-serif;
+  --font-body: var(--font-inter), -apple-system, BlinkMacSystemFont, ui-sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -98,6 +106,12 @@
   --color-pillar-nutrition:  var(--pillar-nutrition);
   --color-pillar-mental:     var(--pillar-mental);
   --color-pillar-social:     var(--pillar-social);
+  --color-tile-sleep:        var(--tile-sleep);
+  --color-tile-recovery:     var(--tile-recovery);
+  --color-tile-movement:     var(--tile-movement);
+  --color-tile-nutrition:    var(--tile-nutrition);
+  --color-tile-mental:       var(--tile-mental);
+  --color-tile-social:       var(--tile-social);
   --color-notification-red:  var(--notification-red);
 }
 
@@ -107,8 +121,10 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: -apple-system, BlinkMacSystemFont, 'Inter', var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
     font-size: 15px;
+    letter-spacing: -0.01em;
   }
 
   #app-shell {
@@ -117,7 +133,11 @@
     min-height: 100dvh;
     position: relative;
     overflow-x: hidden;
-    background: var(--background);
+    background:
+      radial-gradient(ellipse at top left,  oklch(0.97 0.04 65 / 0.6) 0%,  transparent 50%),
+      radial-gradient(ellipse at top right, oklch(0.96 0.05 295 / 0.5) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom,    oklch(0.97 0.04 145 / 0.4) 0%, transparent 60%),
+      var(--background);
   }
 }
 
@@ -162,6 +182,19 @@
   100% { opacity: 0; transform: scale(2.8); }
 }
 .emoji-pop { animation: emoji-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
+/* ── Snap publish success animation ──────────────────────── */
+@keyframes check-scale {
+  0%   { transform: scale(0.4); opacity: 0; }
+  60%  { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); }
+}
+@keyframes success-fade-out {
+  0%, 70% { opacity: 1; transform: scale(1); }
+  100%     { opacity: 0; transform: scale(0.96); }
+}
+.check-scale    { animation: check-scale 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.success-fade   { animation: success-fade-out 1.6s ease-in-out forwards; }
 
 /* ── Apple-style card shadows ─────────────────────────────── */
 .apple-card {

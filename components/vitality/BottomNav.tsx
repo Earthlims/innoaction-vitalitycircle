@@ -19,15 +19,12 @@ interface BottomNavProps {
 export default function BottomNav({ active, onNavigate }: BottomNavProps) {
   return (
     <nav
-      className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] z-50 pb-[env(safe-area-inset-bottom)]"
-      style={{
-        background: 'oklch(0.99 0.008 75 / 0.92)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
-        borderTop: '1px solid oklch(0.91 0.014 78 / 0.6)',
-      }}
+      className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] z-50 pb-[env(safe-area-inset-bottom)] px-3"
     >
-      <div className="flex items-center justify-around h-[60px] px-1">
+      <div
+        className="mx-auto mb-2 flex items-center justify-around h-[64px] px-2 rounded-full bg-white border border-border"
+        style={{ boxShadow: '0 6px 24px oklch(0 0 0 / 0.08), 0 1px 3px oklch(0 0 0 / 0.05)' }}
+      >
         {tabs.map(({ id, label, icon: Icon }) => {
           const isActive = active === id
           return (
@@ -35,27 +32,22 @@ export default function BottomNav({ active, onNavigate }: BottomNavProps) {
               key={id}
               onClick={() => onNavigate(id)}
               aria-label={label}
-              className={`relative flex flex-col items-center gap-0.5 px-4 py-2 rounded-xl transition-all duration-250 ${
+              className={`relative flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-full transition-all duration-200 ${
                 isActive ? 'text-primary' : 'text-muted-foreground'
               }`}
             >
-              {/* Active pill indicator */}
               {isActive && (
-                <span
-                  className="absolute inset-0 rounded-xl"
-                  style={{ background: 'oklch(0.52 0.09 72 / 0.08)' }}
-                />
+                <span className="absolute inset-0 rounded-full bg-accent" aria-hidden="true" />
               )}
               <Icon
                 size={20}
-                strokeWidth={isActive ? 2.0 : 1.6}
-                className={`relative transition-transform duration-200 ${isActive ? 'scale-110' : 'scale-100'}`}
+                strokeWidth={isActive ? 2.2 : 1.7}
+                className="relative"
               />
               <span
-                className={`relative text-[9.5px] font-medium leading-none tracking-wide transition-all duration-200 ${
-                  isActive ? 'text-primary opacity-100' : 'text-muted-foreground opacity-70'
+                className={`relative text-[10px] leading-none tracking-tight ${
+                  isActive ? 'font-semibold' : 'font-medium'
                 }`}
-                style={{ fontFamily: 'var(--font-dm-sans)' }}
               >
                 {label}
               </span>
