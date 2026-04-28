@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Camera, Flame, MapPin, Heart, Sparkles, X, CheckCircle, CalendarDays, BarChart2, Trophy, Zap, Star, Crown, Settings, ChevronDown, Bell } from 'lucide-react'
 import type { Screen } from '@/lib/vitality-types'
 
-interface Props { onNavigate: (s: Screen) => void; openSnap?: boolean }
+interface Props { onNavigate: (s: Screen) => void; openSnap?: boolean; onSnapOpened?: () => void }
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
@@ -958,13 +958,21 @@ function StreakCard({ streak }: { streak: number }) {
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
-export default function CircleScreen({ onNavigate, openSnap = false }: Props) {
+export default function CircleScreen({ onNavigate, openSnap = false, onSnapOpened }: Props) {
   const [activeTab, setActiveTab]             = useState<'FAMILY' | 'DISCOVER' | 'MAP' | 'VITAL DAILY'>('FAMILY')
   const [activeCircleId, setActiveCircleId]   = useState<CircleId>('family')
   const [circleSwitcherOpen, setCircleSwitcherOpen] = useState(false)
   const [streak, setStreak]                   = useState(14)
-  const [snapSheetOpen, setSnapSheetOpen]     = useState(openSnap)
-  const [snapStep, setSnapStep]               = useState<1 | 2 | 3>(openSnap ? 3 : 1)
+  const [snapSheetOpen, setSnapSheetOpen]     = useState(false)
+  const [snapStep, setSnapStep]               = useState<1 | 2 | 3>(1)
+
+  useEffect(() => {
+    if (openSnap) {
+      setSnapSheetOpen(true)
+      setSnapStep(3)
+      onSnapOpened?.()
+    }
+  }, [openSnap])
   const [selectedCircles, setSelectedCircles] = useState<string[]>([])
   const [caption, setCaption]                 = useState('')
   const [postsByCircle, setPostsByCircle]     = useState<Record<CircleId, typeof initialPosts>>({

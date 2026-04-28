@@ -50,7 +50,7 @@ export default function VitalityApp() {
         {screen === 'onboarding'    && <OnboardingScreen   onNavigate={navigate} />}
         {screen === 'home'          && <HomeScreen          onNavigate={navigate} onOpenInsight={openInsight} />}
         {screen === 'insight'       && <InsightScreen       onNavigate={navigate} pillar={insightPillar} />}
-        {screen === 'circle'        && <CircleScreen        onNavigate={navigate} openSnap={fabSnap} />}
+        {screen === 'circle'        && <CircleScreen        onNavigate={navigate} openSnap={fabSnap} onSnapOpened={() => setFabSnap(false)} />}
         {screen === 'circle-detail' && <CircleDetailScreen  onNavigate={navigate} />}
         {screen === 'activities'    && <ActivityScreen      onNavigate={navigate} />}
         {screen === 'guidance'      && <GuidanceScreen      onNavigate={navigate} />}
